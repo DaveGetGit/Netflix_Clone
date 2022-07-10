@@ -27,15 +27,18 @@ function Row({ title, fetchUrl, isLargeRow }) {
   };
 
   const handleClick = (movie) => {
+    debugger;
     if (trailerUrl) {
       setTrailerUrl("");
     } else {
       movieTrailer(movie?.name || "")
         .then((url) => {
-          const urlParams = new URLSearchParams(URL(url).search);
-          setTrailerUrl(urlParams.get("v"));
+          const urlParams = new URLSearchParams(new URL(url).search);
+          debugger;
+          console.log(React.version);
+          urlParams.get("v");
         })
-        .catch((error) => console.log());
+        .catch((error) => console.log(error));
     }
   };
 
@@ -56,7 +59,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
           />
         ))}
       </div>
-      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}{" "}
+      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
     </div>
   );
 }
